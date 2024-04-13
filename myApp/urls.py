@@ -5,7 +5,7 @@ urlpatterns = [
    
     path('registrarse',registrarse,name="registrarse"),
     path('ingresar',ingresar,name="ingresar"),
-    path('inicio',inicio,name="inicio"),
+    path('',inicio,name="inicio"),
     path('libro',libro,name="libro"),
    
 
