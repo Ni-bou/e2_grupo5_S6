@@ -15,6 +15,9 @@ class Libro(models.Model):
     imagen = models.ImageField(upload_to='libros/', null=True, blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='libros')
 
+    def __str__(self):
+        return self.nombre
+
 class CategoriaUsuario(models.Model):
     tipoUsuario = models.CharField(max_length=20)
 

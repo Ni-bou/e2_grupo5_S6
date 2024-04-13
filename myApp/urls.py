@@ -1,5 +1,6 @@
 from django.urls import path 
 from .views import registrarse, ingresar, inicio, libro
+from . import views
 
 urlpatterns = [
    
@@ -7,6 +8,6 @@ urlpatterns = [
     path('ingresar',ingresar,name="ingresar"),
     path('inicio',inicio,name="inicio"),
     path('libro',libro,name="libro"),
-   
+    path('libro/<int:id>/editar/', views.editar_libro, name='editar_libro')
 
 ]

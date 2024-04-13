@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Esto centra el formulario verticalmente */
+      }
+    </style>
+  </head>
+  <body>
+  <div>
+      <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="{%url 'inicio'%}">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link  active" aria-current="page" aria-disabled="true">Libros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{%url 'registrarse'%}">Registrarse</a>
+      </li>
+      </ul>
+  </div>
+  
+  <div class = "container">
+    <h1>Editar Libro {{ libro.nombre}}</h1>
+    <a href= "{url 'listado_libros' %}" class="btn btn-dark">Volver</a>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <form id="formulario_registro" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="" class="form-label">Codigo de libro</label>
+              <input type="text" class="form-control" name="codigo" id="codigo" value="{{ libro.codigo_isbn }}">
+              <small class="text-danger" id="codigo-error"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="" class="form-label">Nombre</label>
+              <input type="text" class="form-control" name="nombre" id="nombre" value="{{ libro.nombre }}">
+              <small class="text-danger" id="codigo-error"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="" class="form-label">Descripcion</label>
+              <textarea name="descripcion" id="descripcion" class="form-control"cols="10" rows="5">
+                {{ libro.descripcion }}
+              </textarea>
+              <small class="text-danger" id="codigo-error"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="" class="form-label">Categoria</label>
+              <select name="categoria" class="form-select">
+              {% for categoria in categorias %}
+              {% if categoria.id ==  libro.categoria.id %}
+                <option value="{{ categoria.id}}" selected> {{ categoria.nombre  }} </option>
+              {% else %}
+                <option value="{{ categoria.id}}"> {{ categoria.nombre  }} </option>
+              {% endif %}
+                
+              {% endfor %}
+            </div>
+
+            <div class="mb-3">
+              <label for="" class="form-label">Imagen</label>
+              <input type="file" class="form-control" name="imagen" id="imagen">
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </body>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</html>
+
+
