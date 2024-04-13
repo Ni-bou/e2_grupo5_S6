@@ -18,7 +18,7 @@ class Tipo_usuario(models.Model):
 
 # tabla  usuario
 class Usuario(models.Model):
-	id_usuario = models.IntegerField(primary_key = True, verbose_name='Id usuario')
+	id_usuario = models.AutoField(primary_key = True, verbose_name='Id usuario')
 	username = models.CharField(max_length=30, verbose_name='username')
 	useremail = models.EmailField(verbose_name='email')
 	password = models.CharField(max_length=255, verbose_name='password')
@@ -30,3 +30,4 @@ class Usuario(models.Model):
     #Denis: función que muestra en la pantalla del administrador django el id tipo usuario y nombre,ISBN es el codigo al inicio 
 	def get_name_code(self):
 		return f" ISBN:{self.id_usuario} -{self.username}-{self.useremail}"
+
