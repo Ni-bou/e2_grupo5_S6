@@ -8,6 +8,6 @@ urlpatterns = [
     path('ingresar',ingresar,name="ingresar"),
     path('inicio',inicio,name="inicio"),
     path('libro',libro,name="libro"),
-    path('libro/<int:id>/editar/', views.editar_libro, name='editar_libro')
+    path('<int:id>/editar/', views.editar_libro, name='editar_libro')
 
 ]

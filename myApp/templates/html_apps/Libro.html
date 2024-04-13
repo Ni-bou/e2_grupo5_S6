@@ -40,21 +40,24 @@
         <thead>
           <tr>
             <th scope="col">Codigo</th>
+            <th scope="col">Imagen</th>
             <th scope="col">Nombre</th>
             <th scope="col">Categoria</th>
-            <th scope="col">Handle</th>
+            
           </tr>
         </thead>
         <tbody>
             {% for libro in libros %}
             <tr>
               <th scope="row">{{ libro.codigo_isbn}}</th>
-              <td>
-                <img src="{{libro.imagen.url}}" width='100px'
-              <td>
+              <td> 
+                <img src="{{libro.imagen.url}}" width='100px' /> 
+              </td>
               <td>{{libro.nombre}}</td>
               <td>{{libro.categoria}}</td>
               <td><a href="{% url 'editar_libro' id=libro.id %}">Editar</a></td>
+              <td></td>
+              <td></td>
             </tr>
             {% endfor %}
         </tbody>

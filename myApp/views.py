@@ -20,6 +20,10 @@ def libro(request):
 
     return render(request, 'html_apps/libro.html', context)
 
+def listado_libros(request):
+    return render(request, 'libro.html')
+
+
 def crear_libro(request):
     if request.method == "POST":
         categoria_id = request.POST.get('categoria')
@@ -43,7 +47,7 @@ def crear_libro(request):
     context = {
         'categorias': categorias
     }
-    return render(request, 'crear.html', context)
+    return render(request, 'html_apps/crear.html', context)
 
 def editar_libro(request, id):
     libro = get_object_or_404(Libro, id=id)
@@ -53,4 +57,4 @@ def editar_libro(request, id):
         'categorias':categorias
     }
 
-    return render (request, 'libro/editar.html', context)
+    return render(request, 'html_apps/editar.html', context)
