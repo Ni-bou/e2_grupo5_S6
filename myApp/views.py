@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro, Categoria, CategoriaUsuario, Usuario
 
 
@@ -20,8 +20,7 @@ def libro(request):
 
     return render(request, 'html_apps/libro.html', context)
 
-def listado_libros(request):
-    return render(request, 'libro.html')
+
 
 
 def crear_libro(request):
@@ -51,6 +50,21 @@ def crear_libro(request):
 
 def editar_libro(request, id):
     libro = get_object_or_404(Libro, id=id)
+
+    if request.method == "POST":
+        categoria_id = request.POST['categoria']
+        categoria = get_object_or_404(Categoria, id=categoria_id)
+
+        libro.nombre = request.POST['nombre']
+        libro.codigo_isbn = request.POST['codigo']
+        libro.descripcion = request.POST.get('descripcion', '')
+        libro.categoria = categoria
+
+        if 'imagen' in  request.FILES:
+            libro.imagen = request.FILES['imagen']
+
+        libro.save()
+
     categorias = Categoria.objects.all()
     context = {
         'libro': libro,
@@ -58,3 +72,12 @@ def editar_libro(request, id):
     }
 
     return render(request, 'html_apps/editar.html', context)
+
+
+def eliminar_libro(request, id):
+    libro = get_object_or_404(Libro, id=id)
+    libro.delete()
+
+    return redirect('libro')
+       
+        

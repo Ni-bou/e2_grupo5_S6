@@ -55,7 +55,8 @@
               </td>
               <td>{{libro.nombre}}</td>
               <td>{{libro.categoria}}</td>
-              <td><a href="{% url 'editar_libro' id=libro.id %}">Editar</a></td>
+              <td><a href="{% url 'editar_libro' id=libro.id %}">EDITAR</a></td>
+              <td><a href="{% url 'eliminar_libro' id=libro.id %}">ELIMINAR</a></td>
               <td></td>
               <td></td>
             </tr>

@@ -10,7 +10,7 @@ class Categoria(models.Model):
     
 class Libro(models.Model):
     codigo_isbn = models.CharField(max_length=10, unique=True)
-    nombre = models.CharField(max_length=10)
+    nombre = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=255, null=True, blank=True)
     imagen = models.ImageField(upload_to='libros/', null=True, blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='libros')
