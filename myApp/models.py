@@ -5,7 +5,7 @@ from django.db import models
 
 #tabla  tipo usuario
 class Tipo_usuario(models.Model):
-    id_tipo_usuairo = models.IntegerField(primary_key=True, verbose_name='Id tipo usuario')
+    id_tipo_usuario = models.IntegerField(primary_key=True, verbose_name='Id tipo usuario')
     descripcion = models.CharField(max_length=15, verbose_name='Nombre tipo usuario')
 
 	#Denis: aquí cambiamos la funcion que obteniamos el nombre por el nombre de la funcion que hicimos mas abajo
@@ -14,11 +14,11 @@ class Tipo_usuario(models.Model):
 
     #Denis: función que obtenga el id de los usuarios en este caso, ISBN es el codigo al inicio
     def get_code_name(self):
-        return f" ISBN:{self.id_tipo_usuairo} -{self.descripcion}"
+        return f" ISBN:{self.id_tipo_usuario} -{self.descripcion}"
 
 # tabla  usuario
 class Usuario(models.Model):
-	id_usuario = models.IntegerField(primary_key = True, verbose_name='Id usuario')
+	id_usuario = models.AutoField(primary_key = True, verbose_name='Id usuario')
 	username = models.CharField(max_length=30, verbose_name='username')
 	useremail = models.EmailField(verbose_name='email')
 	password = models.CharField(max_length=255, verbose_name='password')

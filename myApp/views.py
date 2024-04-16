@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Tipo_usuario
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
@@ -29,7 +28,7 @@ def ingresar(request):
         print(usuarioBD)
         if usuarioBD is not None:
             if usuarioBD.password == password:
-                id_tipo_usuario = usuarioBD.id_tipo_usuario.id_tipo_usuairo
+                id_tipo_usuario = usuarioBD.id_tipo_usuario.id_tipo_usuario
                 if id_tipo_usuario == 1:
                     print("administrador")
                     return render(request, 'html_apps/ingresar.html')
