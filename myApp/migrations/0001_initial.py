@@ -22,11 +22,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Usuario',
             fields=[
-                ('id_usuario', models.IntegerField(primary_key=True, serialize=False, verbose_name='Id usuario')),
+                ('id_usuario', models.AutoField(primary_key=True, serialize=False, verbose_name='Id usuario')),
                 ('username', models.CharField(max_length=30, verbose_name='username')),
                 ('useremail', models.EmailField(max_length=254, verbose_name='email')),
                 ('password', models.CharField(max_length=255, verbose_name='password')),
-                ('perfil', models.IntegerField(blank=True, null=True, verbose_name='perfil')),
                 ('id_tipo_usuario', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='myApp.tipo_usuario', verbose_name='Tipo_de_usuario')),
             ],
         ),

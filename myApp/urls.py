@@ -7,6 +7,7 @@ urlpatterns = [
     path('ingresar',ingresar,name="ingresar"),
     path('',inicio,name="inicio"),
     path('libro',libro,name="libro"),
+
    
 
 ]
