@@ -18,7 +18,7 @@ class Tipo_usuario(models.Model):
 
 # tabla  usuario
 class Usuario(models.Model):
-	id_usuario = models.AutoField(primary_key = True, verbose_name='Id usuario')
+	id_usuario = models.IntegerField(primary_key = True, verbose_name='Id usuario')
 	username = models.CharField(max_length=30, verbose_name='username')
 	useremail = models.EmailField(verbose_name='email')
 	password = models.CharField(max_length=255, verbose_name='password')
@@ -31,3 +31,15 @@ class Usuario(models.Model):
 	def get_name_code(self):
 		return f" ISBN:{self.id_usuario} -{self.username}-{self.useremail}"
 
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def _str_(self):
+        return self.nombre
+    
+class Libro(models.Model):
+    codigo_isbn = models.CharField(max_length=10, unique=True)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=255, null=True, blank=True)
+    imagen = models.ImageField(upload_to='libros/', null=True, blank=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='libros')
