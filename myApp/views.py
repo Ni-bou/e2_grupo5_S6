@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro, Categoria, Tipo_usuario, Usuario
 from django.contrib import messages
+from pathlib import Path
+from django.contrib import sessions
+from django.contrib.auth import logout
 
 
 # Para meterse a cada pagina
@@ -17,8 +20,27 @@ def inicio(request):
     return render(request, 'html_apps/inicio.html')
 
 
+
+def inicio(request):
+    if request.method == 'GET':
+        if  request.session.get('usuario'):
+            usuario = request.session.get('usuario')
+            if usuario:
+                print("mandando un usuario")
+                return render(request, 'html_apps/inicio.html', {'usuario': usuario})
+            else:
+                return redirect('ingresar')
+        else:
+            return redirect('ingresar')
+    else:
+            return redirect('inicio')
+
+
+
 #para obtener el usuario en el login
 def ingresar(request):
+    mensaje_error = None
+    mensaje_Bienvenida = None
     if request.method == 'POST':
         useremail = request.POST.get('user')
         password = request.POST.get('pass')
@@ -29,23 +51,25 @@ def ingresar(request):
         if usuarioBD is not None:
             if usuarioBD.password == password:
                 id_tipo_usuario = usuarioBD.id_tipo_usuario.id_tipo_usuario
-                if id_tipo_usuario == 1:
-                    print("administrador")
+                print("trae al usuario de la base de datos")
+                try:
+                    usuarioBD = Usuario.objects.filter(useremail=useremail).first()
+                    request.session['usuario'] = {'username': usuarioBD.username, 'tipo': id_tipo_usuario}
+                    return redirect('inicio')
+                except Tipo_usuario.DoesNotExist:
+                    print("problema de la pagina")
+                    mensaje_error = 'problemas de la pagina'
                     return render(request, 'html_apps/ingresar.html')
-                elif id_tipo_usuario == 2:
-                    print("usuario normal")
-                    return render(request, 'html_apps/ingresar.html')
-                else:
-                    print("No se encontró perfil")
-                    return render(request, 'html_apps/ingresar.html')
+
             else:
-                print("Password Incorrecta")
-                return render(request, 'html_apps/ingresar.html')
+                print("La contraseña no es la misma")
+                mensaje_error = 'La contraseña no es la misma'
         else:
-            print("Usuario no existe")
-            return render(request, 'html_apps/ingresar.html')
+            print("El usuario no existe")
+            mensaje_error = 'El usuario no existe'
     else:
-        return render(request, 'html_apps/ingresar.html')
+        return render(request, 'html_apps/ingresar.html', {'mensaje_error': mensaje_error,'mensaje_bienvenida':mensaje_Bienvenida})
+    
 
 
 def registrarse(request):
@@ -75,8 +99,11 @@ def registrarse(request):
                 if password == password2:#que las claves sean iguales
                     print("la clave es la misma")
                     # Obtener el último usuario creado en la tabla Usuario
-                    ultimo_usuario = Usuario.objects.latest('id_usuario')#latest obtiene el ultimo id de los usuarios
-                    nuevo_id_usuario = ultimo_usuario.id_usuario + 1 if ultimo_usuario else 1 #crea un usuario, que le suma un digito al id_usuario del ultimo encontrado y si no hay este crea el numero 1
+                    try:
+                        ultimo_usuario = Usuario.objects.latest('id_usuario')
+                        nuevo_id_usuario = ultimo_usuario.id_usuario + 1
+                    except Usuario.DoesNotExist:
+                        nuevo_id_usuario = 1
                     
                     usuarios = Usuario.objects.all() #trae todos los usuarios
                     for usuario in usuarios: #hace un for por cada usuario en la tabla usuario
@@ -84,11 +111,23 @@ def registrarse(request):
                             mensaje_error = 'El usuario ya existe'
                             break
                     
-                    if not mensaje_error:#si no arroja el mensaje anterior entonces agregara al nuevo usuario
-                        tipo_usuario_default = Tipo_usuario.objects.get(pk=2)  # Suponiendo que tienes un tipo de usuario por defecto
-                        nuevo_usuario = Usuario.objects.create(id_usuario=nuevo_id_usuario, username=username1, useremail=useremail1, password=password, id_tipo_usuario=tipo_usuario_default)
-                        print("Nuevo usuario creado:", nuevo_usuario)
-                        usuario_registrado ="¡Usuario registrado exitosamente!"
+                    if not mensaje_error:  # Si no hay error
+                        try:
+                            tipo_usuario_default = Tipo_usuario.objects.get(pk=2)
+                            nuevo_usuario = Usuario.objects.create(id_usuario=nuevo_id_usuario, username=username1, useremail=useremail1, password=password, id_tipo_usuario=tipo_usuario_default)
+                            print("Nuevo usuario creado:", nuevo_usuario)
+                            usuario_registrado = "¡Usuario registrado exitosamente!"
+                            if usuario in usuarios:
+                                try:
+                                    usuarioBD = Usuario.objects.filter(useremail=useremail1).first()
+                                    id_tipo_usuario = usuarioBD.id_tipo_usuario.id_tipo_usuario
+                                    request.session['usuario'] = {'username': usuarioBD.username, 'tipo': id_tipo_usuario}
+                                    return redirect('inicio')
+                                except Tipo_usuario.DoesNotExist:
+                                    print("no fue guardado correctamente")
+                                    
+                        except Tipo_usuario.DoesNotExist:
+                            print("El Tipo_usuario con pk=2 no existe.")
                 else:
                     print("la contraseña no es la misma")
                     mensaje_error = 'Las contraseñas no coinciden'
@@ -99,18 +138,25 @@ def registrarse(request):
 
     return render(request, 'html_apps/registrarse.html', {'mensaje_error': mensaje_error, 'error_contrasena': error_contrasena,'usuario_registrado':usuario_registrado})
 
-
 def libro(request):
-    libros = Libro.objects.all()
-    context = {
-        'libros' : libros
-    }
-
-    return render(request, 'html_apps/libro.html', context)
-
-
-
-
+    if request.method == 'GET':
+        if request.session.get('usuario'):
+            libros = Libro.objects.all()  # Accede al atributo 'objects' del modelo Libro
+            if not libros:  # Verifica si la lista de libros está vacía
+                context = {
+                    'libros': None  # Establece libros como None en el contexto
+                }
+                return render(request, 'html_apps/libro.html', context)
+            else:
+                context = {
+                    'libros': libros
+                }
+                return render(request, 'html_apps/libro.html', context)
+        else:
+            return redirect('ingresar')
+    else:
+        return redirect('inicio')
+    
 def crear_libro(request):
     if request.method == "POST":
         categoria_id = request.POST.get('categoria')
@@ -185,3 +231,7 @@ def eliminar_libro(request, id):
 
 
     return redirect('libro')
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('inicio')

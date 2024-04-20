@@ -40,9 +40,23 @@
       </li>
       </ul>
   </div>
-    
+  <div style="float: right;">
+    <form action="{% url 'cerrar_sesion' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Cerrar Sesión</button>
+</form>
+  </div>
   <div class="contenedor-imagen">
       <img src="{% static 'Imagenes/imagen_fondo/fondo.png'%}"  class="img-fluid" alt="Imagen Redimensionada">
+  </div>
+  <div>
+    {% if usuario %}
+      {% if usuario.tipo == 1 %}
+          <h1>Bienvenido Administrador {{ usuario.username }}</h1>
+      {% elif usuario.tipo == 2 %}
+          <h1>Bienvenido Usuario Normal {{ usuario.username }}</h1>
+      {% endif %}
+    {% endif %}
   </div>
   </body>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>

@@ -52,6 +52,15 @@
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
+          {% if mensaje_error %}
+                <p>{{ mensaje_error }}</p>
+          {% endif %}
+          {% if mensaje_Bienvenida %}
+                <p>{{ mensaje_Bienvenida }}</p>
+          {% endif %}
+          {% if error %}
+                <p>{{ error }}</p>
+          {% endif %}
         </form>
       </div>
     </div>
