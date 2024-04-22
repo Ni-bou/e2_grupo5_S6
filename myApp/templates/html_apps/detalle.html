@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <title>Detalle libro</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <style>
+    .bold-text {
+      font-weight: bold;
+    }
+    .center-container {
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'inicio'%}">Inicio</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  active" aria-current="page" aria-disabled="true">Libros</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="{%url 'registrarse'%}">Registrarse</a>
+    </li>
+  </ul>
+</div>
+
+<div class="container center-container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="mb-3">
+        <img src="{{ libro.imagen.url }}" class="img-fluid" alt="Imagen del libro" width='300px'>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h1>{{ libro.nombre }}</h1>
+      <br>
+      <div class="mb-3">
+        <label for="" class="form-label"><span class="bold-text">CODIGO:</span> {{ libro.codigo_isbn }}</label>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label"><span class="bold-text">NOMBRE:</span> {{ libro.nombre }}</label>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label"><span class="bold-text">CATEGORÍA:</span> {{ libro.categoria.nombre }}</label>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label"><span class="bold-text">DESCRIPCIÓN:</span></label>
+        {% if libro.descripcion %}
+        <textarea name="descripcion" id="descripcion" class="form-control" cols="10" rows="5" placeholder="Escribe aquí la descripción del libro" readonly>{{ libro.descripcion }}</textarea>
+        {% else %}
+        <p class="form-control-static">Aún no hay ninguna descripción para este libro.</p>
+        {% endif %}
+      </div>
+      <a href= "{% url 'libro' %}" class="btn btn-dark">Volver</a>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
