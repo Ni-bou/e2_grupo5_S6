@@ -141,17 +141,11 @@ def registrarse(request):
 def libro(request):
     if request.method == 'GET':
         if request.session.get('usuario'):
-            libros = Libro.objects.all()  # Accede al atributo 'objects' del modelo Libro
-            if not libros:  # Verifica si la lista de libros está vacía
-                context = {
-                    'libros': None  # Establece libros como None en el contexto
-                }
-                return render(request, 'html_apps/libro.html', context)
-            else:
-                context = {
-                    'libros': libros
-                }
-                return render(request, 'html_apps/libro.html', context)
+            libros = Libro.objects.all()
+            context = {
+                'libros': libros
+            }
+            return render(request, 'html_apps/libro.html', context)
         else:
             return redirect('ingresar')
     else:

@@ -17,6 +17,7 @@ urlpatterns = [
     path('crear', views.crear_libro, name='crear_libro'),
     path('<int:id>/', views.detalle_libro, name='detalle_libro'),
     path('cerrar-sesion/', cerrar_sesion, name='cerrar_sesion'),
+    path('libro/<int:id>/', views.detalle_libro, name='detalle_libro'),
 
     
 
