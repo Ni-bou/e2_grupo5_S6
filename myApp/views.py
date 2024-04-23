@@ -209,7 +209,7 @@ def editar_libro(request, id):
 
 
 def detalle_libro(request, id):
-    libro = get_object_or_404(Libro, id=id)
+    libro = get_object_or_404(Libro, codigo_isbn=id)
     print("ID del libro:", libro.id)  # Añade esta línea para verificar el valor del ID
 
     context = {
