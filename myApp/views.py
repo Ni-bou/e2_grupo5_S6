@@ -67,7 +67,11 @@ def ingresar(request):
         else:
             print("El usuario no existe")
             mensaje_error = 'El usuario no existe'
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 1e75320003567732fdf4246f2d29db91c8ef2543
     return render(request, 'html_apps/ingresar.html', {'mensaje_error': mensaje_error,'mensaje_bienvenida':mensaje_Bienvenida})
     
 
