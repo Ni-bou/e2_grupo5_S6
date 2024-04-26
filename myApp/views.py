@@ -2,6 +2,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro, Categoria, CategoriaUsuario, Usuario
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+
+
 
 
 
@@ -13,6 +17,7 @@ def ingresar(request):
 def inicio(request):
     return render(request, 'html_apps/inicio.html')
 
+@login_required
 def libro(request):
     libros = Libro.objects.all()
     context = {
@@ -128,23 +133,27 @@ def crear_usuario(request):
 
 def inicio_sesion(request):
     if request.method == 'POST':
+        print("Recibiendo solicitud POST")
         username = request.POST.get('username')
         password = request.POST.get('password')
-
+        print("Usuario:", username)
+        print("Contraseña:", password)
+        
+        # Autenticar al usuario
         user = authenticate(request, username=username, password=password)
+        print("Resultado de la autenticación:", user)
 
         if user is not None:
+            # Si el usuario es autenticado correctamente, iniciar sesión y redirigir
             login(request, user)
             messages.success(request, 'Inicio de sesión exitoso.')
-            return redirect('libro')
+            return redirect('libro')  # Reemplaza 'libro' con la URL a la que quieres redirigir después del inicio de sesión
         else:
-            context = {
-                'error' : 'Error intente nuevamente'
-            }
-        
-            return render(request, 'registration/login.html', context)
+            # Si la autenticación falla, mostrar un mensaje de error
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
     
-    return render (request, '')
+    # Renderizar la página de inicio de sesión
+    return render(request, 'registration/login.html')
 
 def logout_view(request):
     logout(request)

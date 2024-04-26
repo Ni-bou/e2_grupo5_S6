@@ -1,3 +1,5 @@
+<!-- login.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +26,16 @@
 <div class="container">
     <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         <h1>Ingresa</h1>
-        <form action="" method="post">
+        <form method="post" action="{% url 'inicio_sesion' %}">
           {% csrf_token %}
-          {{ form.as_p }}
+          <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
           <div class="d-grid">
               <button type="submit" class="btn btn-primary">Ingresar</button>
           </div>

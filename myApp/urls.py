@@ -2,12 +2,13 @@ from django.urls import path
 from .views import registrarse, ingresar, inicio, libro, logout_view
 from . import views
 from django.contrib.auth import views as auth_views
+from django.urls.conf import include
 
 
 urlpatterns = [
-   
+    path('accounts/', include('django.contrib.auth.urls')),
     path('registrarse', views.crear_usuario,name="registrarse"),
-    path('login',views.inicio_sesion,name="inicio_sesion"),
+    path('login',views.inicio_sesion, name="inicio_sesion"),
     path('inicio',inicio,name="inicio"),
     path('libro',libro,name="libro"),
     path('<int:id>/editar/', views.editar_libro, name='editar_libro'),
