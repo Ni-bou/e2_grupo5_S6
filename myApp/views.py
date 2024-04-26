@@ -1,14 +1,14 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro, Categoria, CategoriaUsuario, Usuario
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+
 
 
 # Create your views here.
-def registrarse(request):
-    return render(request, 'html_apps/registrarse.html')
 
 def ingresar(request):
-    return render(request, 'html_apps/ingresar.html')
+    return render(request, 'registration/login.html')
 
 def inicio(request):
     return render(request, 'html_apps/inicio.html')
@@ -21,7 +21,8 @@ def libro(request):
 
     return render(request, 'html_apps/libro.html', context)
 
-
+def registrarse(request):
+    return render(request, 'html_apps/registrarse.html')
 
 
 def crear_libro(request):
@@ -99,4 +100,52 @@ def eliminar_libro(request, id):
 
     return redirect('libro')
        
+
+def crear_usuario(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        useremail = request.POST.get('useremail')
+        password = request.POST.get('password')
+
+        if Usuario.objects.filter(username=username).exists():
+            messages.error(request, 'El nombre de usuario ya está en uso.')
+            return redirect('registrarse')
         
+        categoria_cliente = CategoriaUsuario.objects.get(id_tipo_usuario=2)
+
+        usuario = Usuario.objects.create(
+            username=username,
+            useremail=useremail,
+            password=password,
+            id_tipo_usuario=categoria_cliente
+        )
+
+        messages.success(request, 'Se ha creado el usuario correctamente')
+
+        return redirect('registrarse')
+
+    return render(request, 'html_apps/registrarse.html')
+
+def inicio_sesion(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Inicio de sesión exitoso.')
+            return redirect('libro')
+        else:
+            context = {
+                'error' : 'Error intente nuevamente'
+            }
+        
+            return render(request, 'registration/login.html', context)
+    
+    return render (request, '')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

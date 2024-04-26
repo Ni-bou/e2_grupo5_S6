@@ -19,17 +19,18 @@ class Libro(models.Model):
         return self.nombre
 
 class CategoriaUsuario(models.Model):
-    tipoUsuario = models.CharField(max_length=20)
+    id_tipo_usuario = models.IntegerField(unique=True)
+    descripcion = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.tipoUsuario
+        return str(self.id_tipo_usuario)
 
 
 class Usuario(models.Model):
-    usuario = models.CharField(max_length=200)
-    contraseña = models.CharField(max_length=100)
-    email = models.EmailField(max_length=200)
-    nombreApellido = models.CharField(max_length=200)
-    tipoUsuario = models.ForeignKey(CategoriaUsuario, on_delete=models.CASCADE, related_name='usuario')
+    password = models.CharField(max_length=100)
+    useremail = models.EmailField(max_length=200)
+    username = models.CharField(max_length=200)
+    id_tipo_usuario = models.ForeignKey(CategoriaUsuario, on_delete=models.CASCADE, related_name='usuario')
 
-    
+    def __str__(self):
+        return f"{self.username} - {self.id_tipo_usuario}"

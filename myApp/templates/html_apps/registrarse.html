@@ -1,73 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
     <title>Bootstrap demo</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh; /* Esto centra el formulario verticalmente */
+      .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+      }
+      .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
       }
     </style>
-  </head>
-  <body>
-  <div>
-      <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link " href="{%url 'inicio'%}">Inicio</a>
-  
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'libro'%}">Libros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" aria-disabled="true">Registrarse</a>
-      </li>
-      </ul>
+</head>
+<body>
+<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{%url 'inicio_sesion'%}">Ingresar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'registrarse' %}">Registrarse</a>
+        </li>
+    </ul>
   </div>
-    <div class="container">
-      <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10opx; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" >
-        <h1>Registrarse!</h1>
-       <form class="row g-3">
-   <div class="col-12">
-    <label for="inputAddress" class="form-label">Name</label>
-    <input type="text" class="form-control" id="inputName" placeholder="Name">
-  </div>
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
-  </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Password</label>
-    <input type="password" class="form-control" id="inputPassword4">
-  </div>
-   <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">ConfirmPassword</label>
-    <input type="password" class="form-control" id="inputSeconPassword4">
-  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
 
-  <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Confirm
-      </label>
+<div class="container">
+    <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" >
+        <h1>Registrarse!</h1>
+        <form class="row g-3" id="register-form" action="" method="post">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" name="useremail" id="useremail" required>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" name="repassword" id="repassword" required>
+                <div id="password-error" class="text-danger d-none">Las contraseñas no coinciden.</div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary" id="register-button">Registrarse</button>
+            </div>
+        </form>
     </div>
-  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </div>
-</form>
-      </div>
-    </div>
-  </body>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</div>
+</body>
+<script>
+    // Validar que la contraseña y la confirmación de contraseña coincidan antes de enviar el formulario
+    document.getElementById("register-form").addEventListener("submit", function(event) {
+        var password = document.getElementById("password").value;
+        var repassword = document.getElementById("repassword").value;
+
+        if (password !== repassword) {
+            event.preventDefault(); // Evitar que se envíe el formulario
+            document.getElementById("password-error").classList.remove("d-none"); // Mostrar el mensaje de error
+        }
+    });
+</script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </html>
