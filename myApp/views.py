@@ -180,7 +180,7 @@ def crear_libro(request):
     return render(request, 'html_apps/crear.html', context)
 
 def editar_libro(request, id):
-    libro = get_object_or_404(Libro, id=id)
+    libro = get_object_or_404(Libro, codigo_isbn=id)
 
     if request.method == "POST":
         categoria_id = request.POST['categoria']
@@ -209,7 +209,7 @@ def editar_libro(request, id):
 
 def detalle_libro(request, id):
     libro = get_object_or_404(Libro, codigo_isbn=id)
-    print("ID del libro:", libro.id)  # Añade esta línea para verificar el valor del ID
+    print("ID del libro:", libro.codigo_isbn)  # Añade esta línea para verificar el valor del ID
 
     context = {
         'libro': libro
@@ -218,7 +218,7 @@ def detalle_libro(request, id):
     return render (request, 'html_apps/detalle.html', context)
 
 def eliminar_libro(request, id):
-    libro = get_object_or_404(Libro, id=id)
+    libro = get_object_or_404(Libro, codigo_isbn=id)
     libro.delete()
 
     messages.success(request, 'Se ha eliminado el libro correctamente')
