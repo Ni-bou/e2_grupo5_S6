@@ -1,69 +1,109 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <title>Bootstrap demo</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      /* Esto centra el formulario verticalmente */
+    }
+
+/* Estilos para la imagen de fondo */
+.contenedor-imagen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      /* Coloca la imagen detrás de todo */}
+
+    .contenedor-imagen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ajusta la imagen para que cubra todo el contenedor */
+    }
+
+
+
+
+  </style>
+</head>
+
+<body>
+  <!-- Barra de navegación -->
+  <div>
+    <ul class="nav nav-tabs" style="color: #eeeef1;">
+      <li class="nav-item">
+        <a class="nav-link active" href="{%url 'inicio'%}" style="color: #261acf;">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{%url 'libro'%}" style="color: #261acf;">Libros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{%url 'ingresar'%}" style="color: #261acf;">Ingresar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{%url 'registrarse'%}" style="color: #261acf;">Registrarse</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
     {% load static %}
-    <title>Bootstrap demo</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <style>
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh; /* Esto centra el formulario verticalmente */
-      }
-    </style>
-  </head>
-  <body>
-      <div>
-          <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link " href="{%url 'inicio'%}">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{%url 'libro'%}">Libros</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" aria-disabled="true">Ingresar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="{%url 'registrarse'%}">Registrarse</a>
-          </li>
-          </ul>
-      </div>
-    <div class="container">
-      {% load static %}
-      <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10opx; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" >
-        <h1>¡Ingresa!</h1>
-        <form action="" method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Dirección Email</label>
-            <input type="email" class="form-control" id="user" name="user" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">Nunca compartiremos tus datos con terceros</div>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="pass" name="pass" requerid class="form-control">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Recuerdame la proxima vez</label>
-          </div>
-          <button type="submit" class="btn btn-primary" style="background-color: #14aedd;">Ingresar</button>
-          {% if mensaje_error %}
-                <p>{{ mensaje_error }}</p>
-          {% endif %}
-          {% if mensaje_Bienvenida %}
-                <p>{{ mensaje_Bienvenida }}</p>
-          {% endif %}
-          {% if error %}
-                <p>{{ error }}</p>
-          {% endif %}
-        </form>
-      </div>
+    <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10opx; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+      <h1>¡Ingresa!</h1>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Dirección Email</label>
+          <input type="email" class="form-control" id="user" name="user" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">Nunca compartiremos tus datos con terceros</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="pass" name="pass" requerid class="form-control">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Recuerdame la proxima vez</label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="background-color: #14aedd;">Ingresar</button>
+        {% if mensaje_error %}
+        <p>{{ mensaje_error }}</p>
+        {% endif %}
+        {% if mensaje_Bienvenida %}
+        <p>{{ mensaje_Bienvenida }}</p>
+        {% endif %}
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+        <!--Boton de RECUPERAR CONTRASEÑA-->
+        <button type="submit" class="btn btn-primary float-left" style="background-color: #d614dd;">Recuperar contraseña</button>
+        
+      </form>
     </div>
-  </body>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </div>
+
+
+
+  <!-- Imagen de fondo -->
+  <div class="contenedor-imagen">
+    <img src="{% static 'Imagenes/imagen_fondo/fondo7.avif'%}" class="img-fluid" alt="Imagen fondo">
+  </div>
+
+
+
+</body>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 </html>
