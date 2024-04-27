@@ -1,0 +1,32 @@
+{% extends 'html/base.html'%}<!--vamos a contruir aqui una tabla de contenido-->
+{%block contenido%}
+      <h1>listado de usuarios</h1>
+
+      <div class="container">
+   <div class="row">
+            <table class="table">
+              
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre usuarios</th>
+                    <th scope="col">Emailusuario</th>
+                    <th scope="col">clave usuario</th>
+                  </tr>
+                </thead>
+              {% for usuarios in usuarios %}
+                <tbody>
+                  <tr>
+                    <th scope="col">{{usuarios.id_usuario}}</th>
+                    <th scope="col">{{usuarios.username}}</th>
+                    <th scope="col">{{usuarios.useremail}}</th>
+                    <th scope="col">{{usuarios.id_tipo_usuario}}</th>
+                  
+                  </tr>
+                </tbody>
+              {% endfor %}
+              </table>
+        </div>
+      </div>
+
+{%endblock %}>
