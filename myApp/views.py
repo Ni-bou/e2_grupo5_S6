@@ -7,6 +7,8 @@ from django.contrib import messages
 from pathlib import Path
 from django.contrib import sessions
 from django.contrib.auth import logout
+import requests
+
 
 
 # Para meterse a cada pagina
@@ -18,6 +20,25 @@ def ingresar(request):
 
 def inicio(request):
     return render(request, 'html_apps/inicio.html')
+
+import requests
+from django.shortcuts import render
+
+def vista_api(request):
+    # URL de la API
+    url = "https://hp-api.onrender.com/api/characters"
+    
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        personajes = response.json()
+    else:
+        personajes = []
+    context = {
+        'personajes': personajes
+    }
+    return render(request, 'html_apps/vista_api.html', context)
+
 
 
 
