@@ -35,13 +35,13 @@
     <div class="container">
       {% load static %}
       <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10opx; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" >
-        <h1>Ingresa!</h1>
+        <h1>¡Ingresa!</h1>
         <form action="" method="post">
           {% csrf_token %}
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Dirección Email</label>
             <input type="email" class="form-control" id="user" name="user" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <div id="emailHelp" class="form-text">Nunca compartiremos tus datos con terceros</div>
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -49,7 +49,7 @@
           </div>
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <label class="form-check-label" for="exampleCheck1">Recuerdame la proxima vez</label>
           </div>
           <button type="submit" class="btn btn-primary" style="background-color: #14aedd;">Ingresar</button>
           {% if mensaje_error %}
