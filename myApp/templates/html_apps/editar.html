@@ -28,27 +28,27 @@
     </style>
   </head>
   <body>
-  <!-- Barra de navegación -->
-  <div>
-    <ul class="nav nav-tabs" style="color: #eeeef1;">
-      <li class="nav-item">
-        <a class="nav-link active" href="{%url 'inicio'%}" style="color: #261acf;">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'libro'%}" style="color: #261acf;">Libros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'ingresar'%}" style="color: #261acf;">Ingresar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{%url 'registrarse'%}" style="color: #261acf;">Registrarse</a>
-      </li>
-    </ul>
-  </div>
+<!-- Barra de navegación -->
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'inicio' %}active{% endif %}" href="{% url 'inicio' %}" style="color: #261acf;">Inicio</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'libro' %}active{% endif %}" href="{% url 'libro' %}" style="color: #261acf;">Libros</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'ingresar' %}active{% endif %}" href="{% url 'ingresar' %}" style="color: #261acf;">Ingresar</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'registrarse' %}active{% endif %}" href="{% url 'registrarse' %}" style="color: #261acf;">Registrarse</a>
+    </li>
+  </ul>
+</div>
   
   <div class = "container">
     <h1>Editar libro {{ libro.nombre }}</h1>
-    <a href= "{% url 'libro' %}" class="btn btn-dark">Volver</a>
+    <a href= "{% url 'libro' %}" class="btn btn-dark" style="background-color: #14aedd;">Volver</a>
     <div class="row justify-content-center">
       <div class="col-6">
         <div class="card">
@@ -92,7 +92,7 @@
             </div>
 
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-primary" style="background-color: #14aedd;">Guardar</button>
             </div>
 
             </form>

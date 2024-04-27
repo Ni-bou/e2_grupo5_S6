@@ -40,23 +40,23 @@
 </head>
 
 <body>
-  <!-- Barra de navegación -->
-  <div>
-    <ul class="nav nav-tabs" style="color: #eeeef1;">
-      <li class="nav-item">
-        <a class="nav-link active" href="{%url 'inicio'%}" style="color: #261acf;">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'libro'%}" style="color: #261acf;">Libros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'ingresar'%}" style="color: #261acf;">Ingresar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{%url 'registrarse'%}" style="color: #261acf;">Registrarse</a>
-      </li>
-    </ul>
-  </div>
+<!-- Barra de navegación -->
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'inicio' %}active{% endif %}" href="{% url 'inicio' %}" style="color: #261acf;">Inicio</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'libro' %}active{% endif %}" href="{% url 'libro' %}" style="color: #261acf;">Libros</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'ingresar' %}active{% endif %}" href="{% url 'ingresar' %}" style="color: #261acf;">Ingresar</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == 'registrarse' %}active{% endif %}" href="{% url 'registrarse' %}" style="color: #261acf;">Registrarse</a>
+    </li>
+  </ul>
+</div>
 
   <div class="container">
     {% load static %}
@@ -88,7 +88,7 @@
         <p>{{ error }}</p>
         {% endif %}
         <!--Boton de RECUPERAR CONTRASEÑA-->
-        <button type="submit" class="btn btn-primary float-left" style="background-color: #d614dd;">Recuperar contraseña</button>
+        <button type="button" class="btn btn-primary float-left" style="background-color: #d614dd;">Recuperar contraseña</button>
         
       </form>
     </div>
