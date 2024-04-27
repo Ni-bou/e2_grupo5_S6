@@ -1,75 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
-    <title>Inicio</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <style>
-      .contenedor-imagen {
-        max-width: 100%;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-      }
-      .contenedor-imagen img {
-        width: 100%;
-        height: auto;
-      }
-    </style>
 
-  </head>
-  <body>
-  
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <title>Inicio</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <style>
+    .contenedor-imagen {
+      max-width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .contenedor-imagen img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Barra de navegación -->
   <div>
-      <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="color: #261acf;">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" aria-disabled="true">Inicio</a>
+        <a class="nav-link active" aria-current="page" aria-disabled="true" style="color: #261acf;">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{%url 'libro'%}">Libros</a>
+        <a class="nav-link" href="{%url 'libro'%}" style="color: #261acf;">Libros</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
+        <a class="nav-link" href="{%url 'ingresar'%}" style="color: #261acf;">Ingresar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="{%url 'registrarse'%}">Registrarse</a>
+        <a class="nav-link " href="{%url 'registrarse'%}" style="color: #261acf;">Registrarse</a>
       </li>
-      </ul>
+    </ul>
   </div>
-  <div style="float: right;">
-    <div>
+
+ <!-- Botones de cerrar sesión y editar usuario -->
+  <div style="float: right; margin-top: 10px;">
+    <div style="margin-bottom: 10px;">
       <form action="{% url 'cerrar_sesion' %}" method="post">
-      {% csrf_token %}
-      <button type="submit">Cerrar Sesión</button>
+        {% csrf_token %}
+        <button type="submit"
+          style="background-color: #dc35aa; color: #fff; border: none; padding: 10px 20px; border-radius: 5px;">Cerrar
+          Sesión</button>
       </form>
     </div>
     <div>
       <form action="{% url 'editar_usuario' %}" method="POST">
-      {% csrf_token %}
-      <button type="submit">Editar_usuario</button>
+        {% csrf_token %}
+        <button type="submit"
+          style="background-color: #14aedd; color: #fff; border: none; padding: 10px 20px; border-radius: 5px;">Editar
+          Usuario</button>
       </form>
     </div>
-  
   </div>
 
+  <!-- Imagen de fondo -->
   <div class="contenedor-imagen">
-      <img src="{% static 'Imagenes/imagen_fondo/fondo.png'%}"  class="img-fluid" alt="Imagen Redimensionada">
+    <img src="{% static 'Imagenes/imagen_fondo/fondo.png'%}" class="img-fluid" alt="Imagen Redimensionada">
   </div>
+
+  <!-- Mensaje de bienvenida -->
   <div>
     {% if request.method == "GET" %}
-      {% if usuario %}
-        {% if usuario.id_tipo_usuario == 1 %}
-            <h1>Bienvenido Administrador {{ usuario.username }}</h1>
-        {% elif usuario.id_tipo_usuario == 2 %}
-            <h1>Bienvenido Usuario Normal {{ usuario.username }}</h1>
-        {% endif %}
-      {% endif %}
+    {% if usuario %}
+    {% if usuario.id_tipo_usuario == 1 %}
+    <h1>Bienvenido Administrador {{ usuario.username }}</h1>
+    {% elif usuario.id_tipo_usuario == 2 %}
+    <h1>Bienvenido Usuario Normal {{ usuario.username }}</h1>
+    {% endif %}
+    {% endif %}
     {% endif %}
   </div>
-  </body>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 </html>
