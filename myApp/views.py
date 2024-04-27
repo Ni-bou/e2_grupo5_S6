@@ -34,7 +34,31 @@ def inicio(request):
             return redirect('ingresar')
     else:
             return redirect('inicio')
+    
+    
 
+def editar_usuario(request):
+    if request.method == 'POST':
+        mensaje_confirmacion = None
+        usuario_actualizar = request.session.get('usuario')
+        print(usuario_actualizar)
+        if usuario_actualizar:
+            usuario = Usuario.objects.get(id_usuario=usuario_actualizar['id_usuario'])
+            print(usuario)
+            useremail1 = request.POST.get('nombre')
+            email1 = request.POST.get('email')
+
+            usuario.username = useremail1
+            usuario.useremail = email1
+            usuario.save()
+            if usuario:
+                print("Datos de usuario actualizados:", usuario)
+                mensaje_confirmacion= 'Datos de usuario actualizados'
+                request.session['usuario'] = {'id_usuario': usuario.id_usuario,'username': usuario.username,'email':usuario.useremail}
+            return render(request, 'html_apps/editar_usuario.html', {'usuario': usuario, 'mensaje_confirmacion':mensaje_confirmacion})
+        return  redirect('editar_usuario')
+    return  redirect('editar_usuario')
+    
 
 
 #para obtener el usuario en el login
@@ -54,7 +78,7 @@ def ingresar(request):
                 print("trae al usuario de la base de datos")
                 try:
                     usuarioBD = Usuario.objects.filter(useremail=useremail).first()
-                    request.session['usuario'] = {'username': usuarioBD.username, 'tipo': id_tipo_usuario}
+                    request.session['usuario'] = {'id_usuario': usuarioBD.id_usuario,'username': usuarioBD.username,'email':useremail, 'password':usuarioBD.password,'id_tipo_usuario':id_tipo_usuario}
                     return redirect('inicio')
                 except Tipo_usuario.DoesNotExist:
                     print("problema de la pagina")

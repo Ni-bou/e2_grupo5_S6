@@ -41,20 +41,32 @@
       </ul>
   </div>
   <div style="float: right;">
-    <form action="{% url 'cerrar_sesion' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Cerrar Sesión</button>
-</form>
+    <div>
+      <form action="{% url 'cerrar_sesion' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Cerrar Sesión</button>
+      </form>
+    </div>
+    <div>
+      <form action="{% url 'editar_usuario' %}" method="POST">
+      {% csrf_token %}
+      <button type="submit">Editar_usuario</button>
+      </form>
+    </div>
+  
   </div>
+
   <div class="contenedor-imagen">
       <img src="{% static 'Imagenes/imagen_fondo/fondo.png'%}"  class="img-fluid" alt="Imagen Redimensionada">
   </div>
   <div>
-    {% if usuario %}
-      {% if usuario.tipo == 1 %}
-          <h1>Bienvenido Administrador {{ usuario.username }}</h1>
-      {% elif usuario.tipo == 2 %}
-          <h1>Bienvenido Usuario Normal {{ usuario.username }}</h1>
+    {% if request.method == "GET" %}
+      {% if usuario %}
+        {% if usuario.id_tipo_usuario == 1 %}
+            <h1>Bienvenido Administrador {{ usuario.username }}</h1>
+        {% elif usuario.id_tipo_usuario == 2 %}
+            <h1>Bienvenido Usuario Normal {{ usuario.username }}</h1>
+        {% endif %}
       {% endif %}
     {% endif %}
   </div>

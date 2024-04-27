@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import registrarse, inicio, libro,ingresar,cerrar_sesion
+from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario
 from . import views
 
 
@@ -20,5 +20,5 @@ urlpatterns = [
     path('libro/<int:id>/', views.detalle_libro, name='detalle_libro'),
 
     
-
+    path('editar_usuario', editar_usuario, name='editar_usuario'),
 ]
