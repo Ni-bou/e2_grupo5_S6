@@ -39,8 +39,6 @@ def vista_api(request):
     }
     return render(request, 'html_apps/vista_api.html', context)
 
-<<<<<<< HEAD
-=======
 import requests
 from django.shortcuts import render
 
@@ -70,7 +68,6 @@ def vista_api_libros(request):
 
 
 
->>>>>>> 202ce703bad55294ae4c9788fe140733e697e336
 def inicio(request):
     if request.method == 'GET':
         if  request.session.get('usuario'):

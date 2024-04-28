@@ -1,9 +1,5 @@
 from django.urls import path 
-<<<<<<< HEAD
-from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api,cambiar_clave
-=======
-from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api, vista_api_libros
->>>>>>> 202ce703bad55294ae4c9788fe140733e697e336
+from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api, vista_api_libros, cambiar_clave
 from . import views
 
 
