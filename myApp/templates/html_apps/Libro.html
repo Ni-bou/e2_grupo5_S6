@@ -63,7 +63,7 @@
                 <img src="{{libro.imagen.url}}" width='100px' /> 
               </td>
               <td>{{libro.nombre}}</td>
-              <td>{{libro.categoria}}</td>
+              <td>{{libro.categoria.nombre}}</td>
               <td><a href="{% url 'detalle_libro' id=libro.codigo_isbn %}">VER LIBRO</a></td>
               <td><a href="{% url 'editar_libro' id=libro.codigo_isbn %}">EDITAR</a></td>
               <td><a href="{% url 'eliminar_libro' id=libro.codigo_isbn %}">ELIMINAR</a></td>
