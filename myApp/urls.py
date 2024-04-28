@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api
+from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api,cambiar_clave
 from . import views
 
 
@@ -22,4 +22,6 @@ urlpatterns = [
 
     
     path('editar_usuario', editar_usuario, name='editar_usuario'),
+    path('recuperar_contrasena/', views.recuperar_contrasena, name='recuperar_contrasena'),
+    path('cambiar_clave', cambiar_clave, name='cambiar_clave'),
 ]

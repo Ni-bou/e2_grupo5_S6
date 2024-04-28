@@ -50,7 +50,13 @@
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <br>
+            <div>
+              <td><a href="{% url 'recuperar_contrasena' %}">recuperar contrasena</a></td>
+              {% csrf_token %}
+              </form>
           </div>
+          <br>
           <button type="submit" class="btn btn-primary">Submit</button>
           {% if mensaje_error %}
                 <p>{{ mensaje_error }}</p>

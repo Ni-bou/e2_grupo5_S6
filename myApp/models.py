@@ -17,6 +17,7 @@ class Usuario(models.Model):
     username = models.CharField(max_length=30, verbose_name='username')
     useremail = models.EmailField(verbose_name='email')
     password = models.CharField(max_length=255, verbose_name='password')
+    mascota_name = models.CharField(max_length=255, verbose_name='mascota_name')
     id_tipo_usuario = models.ForeignKey(Tipo_usuario, on_delete=models.CASCADE, verbose_name='Tipo usuario')
 
     def __str__(self):
