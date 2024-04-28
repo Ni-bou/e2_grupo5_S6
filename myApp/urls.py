@@ -1,5 +1,9 @@
 from django.urls import path 
+<<<<<<< HEAD
 from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api,cambiar_clave
+=======
+from .views import registrarse, inicio, libro,ingresar,cerrar_sesion, editar_usuario, vista_api, vista_api_libros
+>>>>>>> 202ce703bad55294ae4c9788fe140733e697e336
 from . import views
 
 
@@ -11,6 +15,7 @@ urlpatterns = [
     path('inicio',inicio,name="inicio"),
     path('libro',libro,name="libro"),
     path('vista_api', vista_api,),
+    path('vista_api_libros', vista_api_libros,),
 
     
     path('<int:id>/editar/', views.editar_libro, name='editar_libro'),

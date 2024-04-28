@@ -26,7 +26,7 @@ from django.shortcuts import render
 
 def vista_api(request):
     # URL de la API
-    url = "https://hp-api.onrender.com/api/characters"
+    url = "https://harry-potter-api.onrender.com/personajes"
     
     response = requests.get(url)
 
@@ -39,6 +39,38 @@ def vista_api(request):
     }
     return render(request, 'html_apps/vista_api.html', context)
 
+<<<<<<< HEAD
+=======
+import requests
+from django.shortcuts import render
+
+def vista_api_libros(request):
+    # URL de la API
+    url = "https://gutendex.com/books/"
+    
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        books = data.get('results', [])
+        # Iterar sobre los libros para agregar la URL de la imagen directamente al diccionario
+        for book in books:
+            book['image_url'] = book['formats'].get('image/jpeg', '')
+    else:
+        books = []
+
+    context = {
+        'books': books
+    }
+
+    return render(request, 'html_apps/vista_api_libros.html', context)
+
+
+
+
+
+
+>>>>>>> 202ce703bad55294ae4c9788fe140733e697e336
 def inicio(request):
     if request.method == 'GET':
         if  request.session.get('usuario'):
@@ -328,7 +360,7 @@ def detalle_libro(request, id):
     return render (request, 'html_apps/detalle.html', context)
 
 def eliminar_libro(request, id):
-    libro = get_object_or_404(Libro, id=id)
+    libro = get_object_or_404(Libro, codigo_isbn=id)
     libro.delete()
 
     messages.success(request, 'Se ha eliminado el libro correctamente')

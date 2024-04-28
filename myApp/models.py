@@ -33,7 +33,7 @@ class Categoria(models.Model):
         return self.nombre
     
 class Libro(models.Model):
-    codigo_isbn = models.AutoField(primary_key=True, verbose_name='codigo_isbn_libro')
+    codigo_isbn = models.AutoField(primary_key=True, verbose_name='codigo_isbn_libro', unique=True)
     nombre = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=255, null=True, blank=True)
     imagen = models.ImageField(upload_to='libros/', null=True, blank=True)
