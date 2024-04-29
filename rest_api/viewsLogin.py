@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from myApp.models import Libro
+from myApp.models import Libro, Categoria
 from .serializers import LibroSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view

@@ -46,3 +46,7 @@ class Autor_registro_libro(models.Model):
     codigo_isbn = models.ForeignKey(Libro, on_delete=models.CASCADE, verbose_name='Libro')
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='modificación_libro_usuario')
 
+class cantidad_libros(models.Model):
+    id_cantidad = models.AutoField(primary_key=True, verbose_name='Id cantidad libros')
+    nombre_libro = models.CharField(max_length=30, verbose_name='nombre_libro')
+    cantidad = models.IntegerField(max_length=255, null=True, blank=True)
