@@ -10,8 +10,8 @@ urlpatterns = [
     path('ingresar',ingresar,name="ingresar"),
     path('inicio',inicio,name="inicio"),
     path('libro',libro,name="libro"),
-    path('vista_api', vista_api,),
-    path('vista_api_libros', vista_api_libros,),
+    path('vista_api', vista_api,name="vista_api"),
+    path('vista_api_libros', vista_api_libros,name="vista_api_libros"),
 
     
     path('<int:id>/editar/', views.editar_libro, name='editar_libro'),

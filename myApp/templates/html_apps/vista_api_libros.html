@@ -29,6 +29,29 @@
 </head>
 <body>
 
+    <div>
+        <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" aria-disabled="true">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{%url 'libro'%}">Libros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{%url 'registrarse'%}">Registrarse</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{%url 'vista_api'%}">Aprende mas sobre Harry Potter!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'vista_api_libros'%}">Libros Clasicos</a>
+          </li>
+        </ul>
+    </div>
+
 <div class="container">
     <div class="row">
         {% for book in books %}
