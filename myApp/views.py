@@ -27,17 +27,23 @@ from django.shortcuts import render
 def vista_api(request):
     # URL de la API
     url = "https://harry-potter-api.onrender.com/personajes"
-    
-    response = requests.get(url)
+    if  request.method == 'GET':
+        if  request.session.get('usuario'):
+            response = requests.get(url)
 
-    if response.status_code == 200:
-        personajes = response.json()
+            if response.status_code == 200:
+                personajes = response.json()
+            else:
+                personajes = []
+            context = {
+                'personajes': personajes
+            }
+            return render(request, 'html_apps/vista_api.html', context)
+        else:
+                            return redirect('ingresar')
     else:
-        personajes = []
-    context = {
-        'personajes': personajes
-    }
-    return render(request, 'html_apps/vista_api.html', context)
+            return redirect('inicio')
+
 
 import requests
 from django.shortcuts import render
@@ -45,28 +51,28 @@ from django.shortcuts import render
 def vista_api_libros(request):
     # URL de la API
     url = "https://gutendex.com/books/"
-    
-    response = requests.get(url)
+    if  request.method == 'GET':
+        if  request.session.get('usuario'):
+            response = requests.get(url)
 
-    if response.status_code == 200:
-        data = response.json()
-        books = data.get('results', [])
-        # Iterar sobre los libros para agregar la URL de la imagen directamente al diccionario
-        for book in books:
-            book['image_url'] = book['formats'].get('image/jpeg', '')
+            if response.status_code == 200:
+                data = response.json()
+                books = data.get('results', [])
+                # Iterar sobre los libros para agregar la URL de la imagen directamente al diccionario
+                for book in books:
+                    book['image_url'] = book['formats'].get('image/jpeg', '')
+            else:
+                books = []
+
+            context = {
+                'books': books
+            }
+
+            return render(request, 'html_apps/vista_api_libros.html', context)
+        else:
+                    return redirect('ingresar')
     else:
-        books = []
-
-    context = {
-        'books': books
-    }
-
-    return render(request, 'html_apps/vista_api_libros.html', context)
-
-
-
-
-
+            return redirect('inicio')
 
 def inicio(request):
     if request.method == 'GET':
