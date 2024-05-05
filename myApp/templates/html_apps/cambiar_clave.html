@@ -1,80 +1,121 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
-    <title>Recuperar Contrasenia</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <style>
-      
-    </style>
-  </head>
-  <body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <title>Recuperar Contrasenia</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <style>
+    /* Estilos para la imagen de fondo */
+    .contenedor-imagen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      /* Coloca la imagen detrás de todo */
+    }
+
+    .contenedor-imagen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ajusta la imagen para que cubra todo el contenedor */
+    }
+
+
+    .nav-link:hover {
+      background-color: #14aedd;
+      /* Cambia el color de fondo al pasar el mouse sobre las pestañas del menu*/
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Barra de navegación -->
   <div>
-      <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link  active" aria-current="page" aria-disabled="true">Inicio</a>
+        <a class="nav-link {% if request.path == 'inicio' %}active{% endif %}" href="{% url 'inicio' %}"
+          style="color: #261acf;">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{%url 'libro'%}">Libros</a>
+        <a class="nav-link {% if request.path == 'libro' %}active{% endif %}" href="{% url 'libro' %}"
+          style="color: #261acf;">Libros</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
+        <a class="nav-link {% if request.path == 'ingresar' %}active{% endif %}" href="{% url 'ingresar' %}"
+          style="color: #261acf;">Ingresar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="{%url 'registrarse'%}">Registrarse</a>
-      </li>
+        <a class="nav-link {% if request.path == 'registrarse' %}active{% endif %}" href="{% url 'registrarse' %}"
+          style="color: #261acf;">Registrarse</a>
+
       <li class="nav-item">
-        <a class="nav-link" href="{%url 'vista_api'%}">Aprende mas sobre Harry Potter!</a>
-      </li>
+        <a class="nav-link {% if request.path == 'vista_api' %}active{% endif %}" href="{% url 'vista_api' %}"
+          style="color: #261acf;">Aprende mas sobre Harry Potter!</a>
+
       <li class="nav-item">
-        <a class="nav-link" href="{%url 'vista_api_libros'%}">Libros Clasicos</a>
+        <a class="nav-link {% if request.path == 'vista_api_libros' %}active{% endif %}"
+          href="{% url 'vista_api_libros' %}" style="color: #261acf;">Libros Clasicos</a>
       </li>
     </ul>
-</div>
-      </ul>
   </div>
-  
-  <div class = "container">
-    <h1>Cambiando a Nueva Contraseña </h1>
 
-    <a href= "{% url 'recuperar_contrasena' %}" class="btn btn-dark">Volver</a>
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <div class="card">
-          <div class="card-body">
-            <form id="formulario_registro" action="" method="POST" enctype="multipart/form-data">
+
+<h1 style="color: aliceblue;">Cambiando a Nueva Contraseña </h1>
+
+  <a href="{% url 'recuperar_contrasena' %}" class="btn btn-dark" style="background-color: #14aedd;">Volver</a>
+
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <form id="formulario_registro" action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-3">
-               <label for="exampleInputPassword1" class="form-label">Nueva Clave</label>
-                <input type="password" class="form-control" id="pass" name="pass" placeholder="password">
+              <label for="exampleInputPassword1" class="form-label">Nueva Clave</label>
+              <input type="password" class="form-control" id="pass" name="pass" placeholder="password">
             </div>
 
             <div class="mb-3">
-               <label for="exampleInputPassword1" class="form-label">Confirmar Clave</label>
-                 <input type="password" class="form-control" id="newpass" name="newpass" placeholder="repeat password">
+              <label for="exampleInputPassword1" class="form-label">Confirmar Clave</label>
+              <input type="password" class="form-control" id="newpass" name="newpass" placeholder="repeat password">
             </div>
 
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-primary" style="background-color: #14aedd;">Guardar</button>
             </div>
             {% if error_contrasena %}
-                {{ error_contrasena }}
-              {% endif %}
-              {% if mensaje_clave %}
-                {{ mensaje_clave }}
-              {% endif %}
-            </form>
-            
+            {{ error_contrasena }}
+            {% endif %}
+            {% if mensaje_clave %}
+            {{ mensaje_clave }}
+            {% endif %}
+          </form>
 
-            
-          </div>
+
+
         </div>
       </div>
     </div>
   </div>
-  
-  </body>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+  <!-- Imagen de fondo -->
+  <div class="contenedor-imagen">
+    <img src="{% static 'Imagenes/imagen_fondo/fondo7.avif'%}" class="img-fluid" alt="Imagen fondo">
+  </div>
+
+
+</body>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+<!--PROYECTO ET_MARCA GUIA.-->
+
 </html>

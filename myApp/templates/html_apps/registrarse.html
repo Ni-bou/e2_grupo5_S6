@@ -1,95 +1,129 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <title>Registrarse</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      /* Esto centra el formulario verticalmente */
+    }
+
+
+
+    /* Estilos para la imagen de fondo */
+    .contenedor-imagen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      /* Coloca la imagen detrás de todo */
+    }
+
+    .contenedor-imagen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ajusta la imagen para que cubra todo el contenedor */
+    }
+
+
+    .nav-link:hover {
+      background-color: #14aedd;
+      /* Cambia el color de fondo al pasar el mouse sobre las pestañas del menu*/
+    }
+  </style>
+</head>
+
+<body>
+   <!-- Barra de navegación -->
+   <div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == 'inicio' %}active{% endif %}" href="{% url 'inicio' %}"
+          style="color: #261acf;">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == 'libro' %}active{% endif %}" href="{% url 'libro' %}"
+          style="color: #261acf;">Libros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == 'ingresar' %}active{% endif %}" href="{% url 'ingresar' %}"
+          style="color: #261acf;">Ingresar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == 'registrarse' %}active{% endif %}" href="{% url 'registrarse' %}"
+          style="color: #261acf;">Registrarse</a>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == 'vista_api' %}active{% endif %}" href="{% url 'vista_api' %}"
+          style="color: #261acf;">Aprende mas sobre Harry Potter!</a>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == 'vista_api_libros' %}active{% endif %}" href="{% url 'vista_api_libros' %}"
+        style="color: #261acf;">Libros Clasicos</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
     {% load static %}
-    <title>Bootstrap demo</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <style>
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: auto; /* Esto centra el formulario verticalmente */
-      }
-    </style>
-  </head>
-  <body>
-      <div>
-          <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link " href="{%url 'inicio'%}">Inicio</a>
-      
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{%url 'libro'%}">Libros</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{%url 'ingresar'%}">Ingresar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" aria-disabled="true">Registrarse</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{%url 'vista_api'%}">Aprende mas sobre Harry Potter!</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{%url 'vista_api_libros'%}">Libros Clasicos</a>
-          </li>
-        </ul>
-    </div>
-          </ul>
-      </div>
-    <div class="container">
-    {% load static %}
-      <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" >
-        <h1>Registrarse!</h1>
-       <form action="" method="post" class="row g-3">
+    <div style="padding: 130px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+      <h1>Registrarse!</h1>
+      <form action="" method="post" class="row g-3">
         {% csrf_token %}
-            <div class="col-12">
-            <label for="inputAddress" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Nombre">
-            </div>
-            <div class="col-md-6">
-              <label for="inputEmail4" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-            </div>
-            <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">Password</label>
-            <input type="password" class="form-control" id="first_pass" name="first_pass" placeholder="password">
-              {% if error_contrasena %}
-                <p>{{ error_contrasena }}</p>
-              {% endif %}
-            </div>
-              <div class="col-md-6">
-              <label for="inputPassword5" class="form-label">ConfirmPassword</label>
-              <input type="password" class="form-control" id="second_pass" name="second_pass" placeholder="repeat password">
-            </div>
-            <div class="col-md-6">
-              <label for="inputAddress" class="form-label">Recuperar contraseña</label>
-              <input type="text" class="form-control" id="mascot" name="mascot" placeholder="nombre mascota">
-            </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Nombre completo">
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" class="form-control" id="first_pass" name="first_pass" placeholder="Ingresa tu password">
+          {% if error_contrasena %}
+          <p>{{ error_contrasena }}</p>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword5" class="form-label">ConfirmPassword</label>
+          <input type="password" class="form-control" id="second_pass" name="second_pass" placeholder="Repite tu password">
+        </div>
+        <div class="col-md-6">
+          <label for="inputAddress" class="form-label">Recuperar contraseña</label>
+          <input type="text" class="form-control" id="mascot" name="mascot" placeholder="Nombre mascota">
+        </div>
 
-            <div class="col-12">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                  Confirmar
-                </label>
-              </div>
-            </div>
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary">Sign in</button>
-              {% if mensaje_error %}
-                <p>{{ mensaje_error }}</p>
-              {% endif %}
-            </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              Confirmar
+            </label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary"style="background-color: #14aedd;">Iniciar Sesión</button>
+          {% if mensaje_error %}
+          <p>{{ mensaje_error }}</p>
+          {% endif %}
+        </div>
 
-        </form>
-      </div>
+      </form>
     </div>
- 
+  </div>
+
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   {% if usuario_registrado %}
@@ -100,6 +134,18 @@
       icon: "success"
     });
   </script>
-{% endif %}
-   </body>
+  {% endif %}
+
+
+
+  <!-- Imagen de fondo -->
+  <div class="contenedor-imagen">
+    <img src="{% static 'Imagenes/imagen_fondo/fondo4.png'%}" class="img-fluid" alt="Imagen fondo">
+  </div>
+
+
+</body>
+
+<!--PROYECTO ET_MARCA GUIA.-->
+
 </html>
